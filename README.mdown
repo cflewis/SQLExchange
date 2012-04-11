@@ -2,6 +2,8 @@ SQL Exchange
 ============
 *_The Missing Stack Exchange Importer_*
 
+<img src="http://files.dipdive.com/1243683222/mediaItem/38556/80039/Poker_Squirrels.jpg" width="200" />
+
 Motivation
 -----------
 It's really awesome that [Stack Exchange](http://www.stackexchange.com) releases all their data to download, for free! If you just want to do easy SQL queries on [Stack Overflow](http://www.stackoverflow.com) to see how close you are to Jon Skeet, you can do that at their [Data Explorer](http://data.stackexchange.com).
