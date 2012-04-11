@@ -20,7 +20,7 @@ Requirements
 ------------
 * Python (2.6+, probably)
 * SQLAlchemy
-* A database that you can feed the output into. This has to be one [SQLAlchemy supports](http://docs.sqlalchemy.org/en/latest/core/engines.html).
+* A database that you can feed the output into. This has to be one [SQLAlchemy supports](http://docs.sqlalchemy.org/en/latest/core/engines.html). For the benefit of Googlebot, this includes MySQL, PostgreSQL, Oracle and others.
 * The relevant Python database adapter for SQLAlchemy to use. You'll need to get this up and running on your own.
 * Time... the import takes a long time. Even extracting the 7-zip archive for the main Stack Overflow export takes ages.
 
