@@ -9,9 +9,11 @@ def parseXml(xmlFile, rowObject, session):
     for event, element in etree.iterparse(xmlFile):
         if element.tag == 'row':
             row = rowObject.parseRow(element)
+            print row
             session.add(row)
             session.commit()
-            # free this from memory
+
+            # free this element from memory
             element.clear()
 
 def getFileObject(xmlFile):
@@ -38,13 +40,14 @@ def getFileObject(xmlFile):
 if __name__ == '__main__':
     files = sys.argv[2:]
 
-    engine = create_engine(sys.argv[1], echo=True)
+    engine = create_engine(sys.argv[1], echo=False)
     items.Base.metadata.create_all(engine)
 
     SessionMaker = sessionmaker(bind=engine)
     session = SessionMaker()
 
     for f in files:
+        print "Parsing " + f
         xmlFile = open(f, 'rb')
         fileObject = getFileObject(xmlFile)
         xmlFile.seek(0)
