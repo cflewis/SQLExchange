@@ -24,15 +24,22 @@ Requirements
 
 Usage
 -----
-    python overflow.py [list of XML files on the command-line]
+    python overflow.py [SQLAlchemy connection string] [list of XML files on the command-line]
 
 Examples:
 
-    python overflow.py badges.xml
+    python overflow.py mysql://root:root@127.0.0.1:8889/stackexchange?charset=utf8 badges.xml
     python overflow.py *.xml
+
+Make sure to add `?charset=utf8` to your connection string in the relevant cases. Stack Exchange data is in Unicode, and not opening a Unicode connection can result in weird encoding at the database end.
 
 Compatibility
 -------------
 SQL Exchange is compatible with the database dumps of all Stack Exchange sites as of April 2012. It won't catch changes to the dump output, as the database schema has to be rebuilt with types that are removed when dumping to XML. It _should_ continue to work (albeit missing any new elements) as long as the current schema is only added to, not changing what is currently outputted.
+
+Limitations
+-----------
+* Only imports badges, comments, posts and users. Other XML is not parsed yet.
+* Database passwords can be leaked to the command-line history; it would be better to read from environment variables or a file that can be locked from others.
 
 
