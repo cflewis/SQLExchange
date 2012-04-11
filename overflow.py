@@ -2,12 +2,16 @@ from lxml import etree
 import items
 import sys
 
-def parseXml(xmlFile, rowObject):
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+def parseXml(xmlFile, rowObject, session):
     for event, element in etree.iterparse(xmlFile):
         if element.tag == 'row':
             row = rowObject.parseRow(element)
-            print row
-
+            session.add(row)
+            session.commit()
+            # free this from memory
             element.clear()
 
 def getFileObject(xmlFile):
@@ -34,8 +38,16 @@ def getFileObject(xmlFile):
 if __name__ == '__main__':
     files = sys.argv[1:]
 
+    engine = create_engine('mysql://root:root@127.0.0.1:8889/stackexchange?charset=utf8', echo=True)
+    items.Base.metadata.create_all(engine)
+
+    SessionMaker = sessionmaker(bind=engine)
+    session = SessionMaker()
+
     for f in files:
         xmlFile = open(f, 'rb')
         fileObject = getFileObject(xmlFile)
         xmlFile.seek(0)
-        parseXml(xmlFile, fileObject)
+        parseXml(xmlFile, fileObject, session)
+
+    session.close()

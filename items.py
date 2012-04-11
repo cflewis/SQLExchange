@@ -103,7 +103,7 @@ class Post(Base):
         pass
 
     def __repr__(self):
-        return "<Post>"
+        return "<Post Id: %s, Title: %s>" % (self.Id, self.Title)
 
     @staticmethod
     def parseRow(element):
@@ -179,7 +179,7 @@ class User(Base):
         pass
 
     def __repr__(self):
-        return "<User>"
+        return "<User Id: %s, DisplayName: %s>" % (self.Id, self.DisplayName)
 
     @staticmethod
     def parseRow(element):

@@ -1,0 +1,38 @@
+SQL Exchange
+============
+*_The Missing Stack Exchange Importer_*
+
+Motivation
+-----------
+It's really awesome that [Stack Exchange](http://www.stackexchange.com) releases all their data to download, for free! If you just want to do easy SQL queries on [Stack Overflow](http://www.stackoverflow.com) to see how close you are to Jon Skeet, you can do that at their [Data Explorer](http://data.stackexchange.com).
+
+But what if you want to do something that SQL can't? Like, real data mining?
+
+You can download the [latest data dump](http://www.clearbits.net/creators/146-stack-exchange-data-dump), but it's in XML so isn't easily queried.
+
+What I needed was a way to import the XML into an SQL database. There are some options for importing to SQL Server, and some that are Windows-specific, but I wanted a platform-independent, database-independant solution.
+
+So I wrote SQL Exchange.
+
+Requirements
+------------
+* Python (2.6+, probably)
+* SQLAlchemy (`pip` will get this automatically for you)
+* A database that you can feed the output into. This has to be one [SQLAlchemy supports](http://docs.sqlalchemy.org/en/latest/core/engines.html).
+* The relevant Python database adapter for SQLAlchemy to use. You'll need to get this up and running on your own.
+* Time... the import takes a long time. Even extracting the 7-zip archive for the main Stack Overflow export takes ages.
+
+Usage
+-----
+    python overflow.py [list of XML files on the command-line]
+
+Examples:
+
+    python overflow.py badges.xml
+    python overflow.py *.xml
+
+Compatibility
+-------------
+SQL Exchange is compatible with the database dumps of all Stack Exchange sites as of April 2012. It won't catch changes to the dump output, as the database schema has to be rebuilt with types that are removed when dumping to XML. It _should_ continue to work (albeit missing any new elements) as long as the current schema is only added to, not changing what is currently outputted.
+
+
