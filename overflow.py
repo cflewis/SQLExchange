@@ -36,9 +36,9 @@ def getFileObject(xmlFile):
     raise IOError('Unknown XML file')
 
 if __name__ == '__main__':
-    files = sys.argv[1:]
+    files = sys.argv[2:]
 
-    engine = create_engine('mysql://root:root@127.0.0.1:8889/stackexchange?charset=utf8', echo=True)
+    engine = create_engine(sys.argv[1], echo=True)
     items.Base.metadata.create_all(engine)
 
     SessionMaker = sessionmaker(bind=engine)
