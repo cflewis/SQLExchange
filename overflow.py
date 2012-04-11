@@ -49,7 +49,13 @@ if __name__ == '__main__':
     for f in files:
         print "Parsing " + f
         xmlFile = open(f, 'rb')
-        fileObject = getFileObject(xmlFile)
+
+        try:
+            fileObject = getFileObject(xmlFile)
+        except IOError as e:
+            print e
+            continue
+        
         xmlFile.seek(0)
         parseXml(xmlFile, fileObject, session)
 
