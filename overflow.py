@@ -9,12 +9,21 @@ def parseXml(xmlFile, rowObject, session):
     for event, element in etree.iterparse(xmlFile):
         if element.tag == 'row':
             row = rowObject.parseRow(element)
-            print row
+
             session.add(row)
             session.commit()
 
             # free this element from memory
             element.clear()
+
+            try:
+                print row
+            except UnicodeEncodeError as e:
+                # Printing can raise an error as Python tries to co-erce
+                # the string to ASCII for terminal output. I can't be bothered
+                # to work out what magical encode/decode incantation is required, so I'll
+                # just catch the exception and pass.
+                pass
 
 def getFileObject(xmlFile):
     # get an iterable
@@ -55,7 +64,7 @@ if __name__ == '__main__':
         except IOError as e:
             print e
             continue
-        
+
         xmlFile.seek(0)
         parseXml(xmlFile, fileObject, session)
 
